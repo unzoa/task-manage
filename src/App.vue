@@ -1,6 +1,6 @@
 <!--
  * @Date: 2023-02-07 20:58:01
- * @LastEditTime: 2023-02-07 22:24:56
+ * @LastEditTime: 2023-02-08 18:48:14
  * @FilePath: /task-manage/src/App.vue
  * @Description:
  *
@@ -9,24 +9,18 @@
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import { useCounterStore } from './stores/counter'
-import { ref } from 'vue'
 
 
-const count = useCounterStore().count
+// const count = useCounterStore().count
 const increment = useCounterStore().increment
-console.log(count);
-
-const count1 = ref(1)
-function aa () {
-  count1.value++
-}
+// console.log(count);
 
 </script>
 
 <template>
   <header>
-    <p>{{count}}, {{count1}}</p>
-    <img @click="aa" alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <p>{{useCounterStore().count}}</p>
+    <img @click="increment" alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
