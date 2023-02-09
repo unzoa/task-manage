@@ -12,5 +12,7 @@
     {
       "path": "./tsconfig.config.json"
     }
-  ]
+  ],
+
+  "jsx": "preserve"
 }

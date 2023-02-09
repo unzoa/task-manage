@@ -1,10 +1,3 @@
-/*
- * @Date: 2023-02-07 20:58:01
- * @LastEditTime: 2023-02-07 21:18:33
- * @FilePath: /task-manage/src/main.ts
- * @Description:
- *
- */
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 

@@ -1,30 +1,19 @@
-<!--
- * @Date: 2023-02-07 20:58:01
- * @LastEditTime: 2023-02-08 18:48:14
- * @FilePath: /task-manage/src/App.vue
- * @Description:
- *
--->
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 import { useCounterStore } from './stores/counter'
-
-
-// const count = useCounterStore().count
-const increment = useCounterStore().increment
-// console.log(count);
-
+import { useMembers } from './stores/members.ts'
 </script>
 
 <template>
   <header>
-    <p>{{useCounterStore().count}}</p>
-    <img @click="increment" alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <div>
+      <p>{{useMembers().members}}</p>
+      <button @click="useMembers().addMember({name: 'john', role: 1})">addMember</button>
+    </div>
+
+    <img @click="useCounterStore().increment" alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
