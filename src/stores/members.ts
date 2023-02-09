@@ -1,14 +1,24 @@
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 import { defineStore } from "pinia"
+interface Member {
+  id: number,
+  name: string,
+  role: number
+}
 
-export const useMembers = defineStore('members', () => {
-  const members: Ref<Array<{id: number}>> = ref([])
+interface NewMember {
+  name: string,
+  role: number
+}
+
+export const useMembersStore = defineStore('members', () => {
+  const members: Ref<Array<Member>> = ref([])
 
   /**
-   * @param {object} member { name: string, role: number }
+   * @param {object} member
    */
-  function addMember (member: object) {
+  function addMember (member: NewMember) {
     members.value.push({
       id: new Date().getTime(),
       ...member
@@ -19,16 +29,18 @@ export const useMembers = defineStore('members', () => {
    * @param {number} member_id
    */
   function delMember (member_id: number) {
-    console.log(member_id)
-    members.value = members.value.filter(({id}) => id !== member_id)
+    members.value = members.value.filter( ({id}) => id !== member_id )
   }
 
 
   /**
-   * @param {object} member { id: number, name: string, role: number }
+   * @param {object} member
    */
-  function editMember (member: object) {
-    console.log(member)
+  function editMember (member: Member) {
+    const memberId = member.id
+    members.value = members.value.map( (memberItem) => {
+      return memberItem.id === memberId ? member : memberItem
+    } )
   }
 
   return {

@@ -1,21 +1,16 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { useCounterStore } from './stores/counter'
-import { useMembers } from './stores/members.ts'
 </script>
 
 <template>
   <header>
-    <div>
-      <p>{{useMembers().members}}</p>
-      <button @click="useMembers().addMember({name: 'john', role: 1})">addMember</button>
-    </div>
-
     <img @click="useCounterStore().increment" alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/">Members</RouterLink>
+        <RouterLink to="/home">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
