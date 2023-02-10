@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 import { defineStore } from "pinia"
+
 interface Member {
   id: number,
   name: string,
