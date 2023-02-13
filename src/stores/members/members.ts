@@ -1,15 +1,7 @@
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 import { defineStore } from "pinia"
-
-interface Member extends NewMember {
-  id: number
-}
-
-interface NewMember {
-  name: string,
-  role: number
-}
+import type { Member } from './member-type'
 
 export const useMembersStore = defineStore('members', () => {
   const members: Ref<Array<Member>> = ref([])
@@ -17,7 +9,7 @@ export const useMembersStore = defineStore('members', () => {
   /**
    * @param {object} member
    */
-  function addMember (member: NewMember) {
+  function addMember (member: Member) {
     members.value.push({
       id: new Date().getTime(),
       ...member

@@ -5,7 +5,6 @@ import type {
 } from 'axios'
 
 import project from '../../pro'
-console.log(project);
 const { api } = project
 
 function TOKEN () {

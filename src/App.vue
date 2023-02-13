@@ -10,8 +10,7 @@ import { useCounterStore } from './stores/counter'
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Members</RouterLink>
-        <RouterLink to="/home">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/tasks">Tasks</RouterLink>
       </nav>
     </div>
   </header>
