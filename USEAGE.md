@@ -81,3 +81,22 @@ export default (props, { slots, emit, attrs}) => {
 
 Q：ts 运行时不校验
 A：
+
+
+Q: 全局变量
+A:
+```js
+import { inject } from 'vue'
+interface Req {
+  post: any
+}
+
+const request = inject<Req>('request', {})
+
+function login() {
+  request.post('login', {
+    userName: 'a',
+    pwd: ''
+  })
+}
+```

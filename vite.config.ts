@@ -20,7 +20,33 @@ export default defineConfig({
     }
   },
 
+  server: {
+    port: 8080
+  },
+
   build: {
-    assetsDir: 'static'
+    // assetsDir: 'static',
+    rollupOptions: {
+      external: 'element-plus', // 注意看这里
+      output: {
+        chunkFileNames: 'static/js/[name]-[hash].js',
+        entryFileNames: 'static/js/[name]-[hash].js',
+        assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+        manualChunks(id) { //静态资源分拆打包
+          if (id.includes('node_modules')) {
+
+            // 拆分打包的时候不打包 element-plus
+            // if (id.includes('element-plus')) {
+            //     return;
+            // }
+            return id.toString().split('node_modules/')[1].split('/')[0].toString()
+          }
+        },
+        // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
+        globals: {
+          'element-plus': 'elementPlus'
+        }
+      }
+    }
   }
 })

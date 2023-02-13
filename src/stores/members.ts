@@ -2,10 +2,8 @@ import { ref } from 'vue'
 import type { Ref } from 'vue'
 import { defineStore } from "pinia"
 
-interface Member {
-  id: number,
-  name: string,
-  role: number
+interface Member extends NewMember {
+  id: number
 }
 
 interface NewMember {
@@ -38,10 +36,13 @@ export const useMembersStore = defineStore('members', () => {
    * @param {object} member
    */
   function editMember (member: Member) {
-    const memberId = member.id
-    members.value = members.value.map( (memberItem) => {
-      return memberItem.id === memberId ? member : memberItem
-    } )
+    const { id } = member
+    for (const memberkey in members.value) {
+      if (members.value[memberkey].id === id) {
+        members.value[memberkey] = member
+        break
+      }
+    }
   }
 
   return {
