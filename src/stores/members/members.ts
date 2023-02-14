@@ -6,32 +6,32 @@ import type { Member } from './member-type'
 export const useMembersStore = defineStore('members', () => {
   const members: Ref<Array<Member>> = ref([])
 
-  /**
-   * @param {object} member
-   */
+  function getMembers (id: number | string) {
+    // API 查询
+  }
+
   function addMember (member: Member) {
     members.value.push({
       id: new Date().getTime(),
       ...member
     })
+
+    // API 存储
   }
 
-  /**
-   * @param {number} member_id
-   */
   function delMember (member_id: number) {
     members.value = members.value.filter( ({id}) => id !== member_id )
+
+    // API 删除
   }
 
-
-  /**
-   * @param {object} member
-   */
   function editMember (member: Member) {
     const { id } = member
     for (const memberkey in members.value) {
       if (members.value[memberkey].id === id) {
         members.value[memberkey] = member
+
+        // API 更新
         break
       }
     }

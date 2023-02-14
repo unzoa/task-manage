@@ -1,5 +1,5 @@
 export interface Member {
-  id?: number | undefined,
-  name: string,
+  id?: number
+  name: string
   role: number
 }

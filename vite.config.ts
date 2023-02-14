@@ -1,10 +1,3 @@
-/*
- * @Date: 2023-02-07 20:58:01
- * @LastEditTime: 2023-02-07 21:44:57
- * @FilePath: /task-manage/vite.config.ts
- * @Description:
- *
- */
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -16,12 +9,13 @@ export default defineConfig({
   plugins: [vue(), vueJsx()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@request': fileURLToPath(new URL('./src/config/third_modules/axios/request.ts', import.meta.url)),
     }
   },
 
   server: {
-    port: 8080
+    port: 8090
   },
 
   build: {
@@ -34,11 +28,10 @@ export default defineConfig({
         assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
         manualChunks(id) { //静态资源分拆打包
           if (id.includes('node_modules')) {
-
             // 拆分打包的时候不打包 element-plus
-            // if (id.includes('element-plus')) {
-            //     return;
-            // }
+            if (id.includes('element-plus')) {
+                return;
+            }
             return id.toString().split('node_modules/')[1].split('/')[0].toString()
           }
         },

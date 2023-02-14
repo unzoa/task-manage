@@ -79,13 +79,17 @@ export default (props, { slots, emit, attrs}) => {
 }
 ```
 
-Q：ts 运行时不校验
-A：
+Q：ts 在vscode中，修改了ts类型写法，但是在vue文件中依然以旧写法检验？
+A：需要重启vscode
 
 
 Q: 全局变量
 A:
-```js
+```js main.ts
+app.provide('request', request)
+```
+
+```js .vue
 import { inject } from 'vue'
 interface Req {
   post: any
@@ -100,3 +104,21 @@ function login() {
   })
 }
 ```
+
+Q: ts select配置默认空值
+A:
+```js role.ts
+['zuzhang', 'zuyuan']
+```
+
+```js member-type.ts
+interface Member {
+  role: number
+}
+```
+
+```js members.vue
+// 表单默认值
+const memberObj = ref({} as Member)
+```
+

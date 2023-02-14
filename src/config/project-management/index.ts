@@ -5,7 +5,7 @@ import routerObj from './router.ts'
 const tokenName = 'system'
 localStorage.setItem('tokenName', tokenName)
 
-document.title = 'X系统'
+document.title = '任务追踪管理'
 
 export const router = routerObj
 export default {
