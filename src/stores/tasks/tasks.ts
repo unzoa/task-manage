@@ -1,23 +1,11 @@
 import { defineStore } from 'pinia'
 import { ref, type Ref } from 'vue'
-
-interface TaskContent {
-  "task_name": string,
-  "task_alias": string, // 简称
-  "manager_name": string, // 负责人
-  "members": Array<number>, // 参与者
-  "start_time": string, // 开始时间
-  "status": number // 状态
-}
-
-interface Task extends TaskContent {
-  "task_id": number
-}
+import type { Task } from './task-type'
 
 export default defineStore('tasks', () => {
   const tasks: Ref<Array<Task>> = ref([])
 
-  function addTask (taskContent: TaskContent) {
+  function addTask (taskContent: Task) {
     tasks.value.push({
       task_id: new Date().getTime(),
       ...taskContent

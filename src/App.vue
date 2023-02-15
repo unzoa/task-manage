@@ -15,6 +15,19 @@ import { useCounterStore } from './stores/counter'
     </div>
   </header>
 
+  <input
+    id="upd"
+    type="file"
+    url="https://xxxx.com/api/upload/"
+    drag
+    :autoUpload=true
+    multiple
+    webkitdirectory
+    :data="{
+      a: 1
+    }"
+    />
+
   <RouterView />
 </template>
 

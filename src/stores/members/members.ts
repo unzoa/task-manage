@@ -39,6 +39,7 @@ export const useMembersStore = defineStore('members', () => {
 
   return {
     members,
+    getMembers,
     addMember,
     delMember,
     editMember

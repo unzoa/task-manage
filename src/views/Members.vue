@@ -1,17 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import request from '@request'
+import { storeToRefs } from 'pinia'
 import role from '../stores/role'
 import { useMembersStore } from '../stores/members/members'
-import { storeToRefs } from 'pinia'
 import type { Member } from '../stores/members/member-type'
+
 const { members } = storeToRefs(useMembersStore())
 const { addMember, delMember, editMember } = useMembersStore()
-
-request.post('login', {
-  userName: 'a',
-  pwd: '961b6dd3ede3cb8ecbaacbd68de040cd78eb2ed5889130cceb4c49268ea4d506'
-})
 
 const membersArrData = computed(() => {
   return members.value.map(i => {
