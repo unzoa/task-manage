@@ -12,16 +12,24 @@
 // 对外接口：
   // input change事件
 
-type Files = Array<any>
+type InputDom = any // HTMLInputElement
+type Files = Array<InputDom>
 type FinalFiles = Files | undefined
+type FilesMessagelist = Array<object>
 interface Callback {
-  filter: (fileList: Files, originFilterFailList: Files) => Files,
+  filter: (fileList: Files, originFilterFailList: FilesMessagelist) => Files, // 更多过滤条件处理
 
-  failList: (fileList: Files) => void,
-  onSwitch: (isSwitch: boolean) => void,
-  onTotal: (count: number) => void,
-  onImgPreview: (file: any) => void
+  failMessageList: (failMessageList: FilesMessagelist) => void, // 失败文件数组
+  onSwitch: (isSwitch: boolean) => void, // 是否开始任务
+  onTotal: (count: number) => void, // 总上传数量
+  onImgPreview: (file: any) => void // 上传图片预览
   // beforeDrag: () => void
+}
+
+interface Options {
+  data: object | undefined, // 上传携带参数
+  limit: number, // 限制上传个数
+  size: number | undefined, // 限制上传文件大小
 }
 
 export default class Upload {
@@ -29,36 +37,25 @@ export default class Upload {
   count: number = -1
   fileKey: string = 'file'
 
-  // 多文件 or 文件夹
-  webkitdirectory: boolean = false
-  multiple: boolean = false
-  // 自动上传
-  autoUpload: boolean = false
-  // 拖拽
-  drag: boolean = false
-  // 接收格式
-  accept: string = ''
+  webkitdirectory: boolean = false // 文件夹
+  multiple: boolean = false // 多文件
+  autoUpload: boolean = false // 自动上传
+  drag: boolean = false // 拖拽
+  accept: string = '' // 接收格式
 
-  inputDom: any = null
-
+  inputDom: InputDom = null
 
   constructor (
     public id: string,
-    // 必须
     public url: string,
-    public data: object | undefined,
-    // 过滤
-    public limit: number = 1,
-    public size: number | undefined,
-
-    // 回调
+    public options: Options = {} as Options,
     public cb: Callback = {} as Callback
   ) {
     this.init()
   }
 
   init () {
-    this.inputDom = document.getElementById(this.id)
+    this.inputDom = document.getElementById(this.id) as InputDom
     const {
       webkitdirectory,
       multiple,
@@ -75,7 +72,7 @@ export default class Upload {
     this.accept = accept.value
   }
 
-  change (e: {target: {files: Files}}) {
+  change (e: any) { // {target: {files: Files}}
     const files: Files = e.target.files
     this.transFiles(files)
   }
@@ -85,10 +82,10 @@ export default class Upload {
 
 
     // 不通过 size和格式 过滤的文件
-    let failList: Files = []
+    let failMessageList: FilesMessagelist = []
     const filesFilter: Files = Array.from(files).filter(file => {
-      const sizeBol = this.size
-        ? file.size <= this.size
+      const sizeBol = this.options.size
+        ? file.size <= this.options.size
         : true
 
       const acceptBol = this.accept
@@ -102,7 +99,7 @@ export default class Upload {
         case !acceptBol: failText = '文件格式不正确'; break
       }
 
-      !(sizeBol && acceptBol) && failList.push({
+      !(sizeBol && acceptBol) && failMessageList.push({
         file_name: file.name,
         message: failText
       })
@@ -111,10 +108,10 @@ export default class Upload {
     })
 
     // 更多过滤
-    const filterSuccessList: FinalFiles = this.cb.filter(filesFilter, failList) || filesFilter
+    const filterSuccessList: FinalFiles = this.cb.filter(filesFilter, failMessageList) || filesFilter
 
     // 通知：不通过过滤的文件
-    if (failList.length) this.cb.failList(failList)
+    if (failMessageList.length) this.cb.failMessageList(failMessageList)
 
     if (filterSuccessList?.length === 0) {
       // this.$emit('on-switch', false)
@@ -151,17 +148,16 @@ export default class Upload {
 
 
     // 清空form
-    this.inputDom?.reset()
-
+    this.inputDom.reset()
 
     // 或开始上传
     // this.autoUpload && this.submit()
   }
 
   limitNumEvent (files: Files) {
-    if (!this.limit) return false
+    if (!this.options.limit) return false
 
-    if (files.length > this.limit) {
+    if (files.length > this.options.limit) {
       // this.$emit('on-limit-error')
       return false
     }
