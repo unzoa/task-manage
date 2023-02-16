@@ -1,6 +1,40 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useCounterStore } from './stores/counter'
+import upload from 'upload-calc'
+
+const upd: any = ref({})
+
+onMounted(() => {
+  upd.value = new upload('upd', 'https://www.biweicloud.com:9012/api/file_upload/', {
+    data: {
+      file_type: 1,
+      task_number: 'task_1676530245',
+      file_attr: 0,
+      file_name: 'ShadowsocksX-NG-R8.exe',
+      file_path: '',
+      token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVuem9hLWNjIiwidXNlcl9pZCI6Mzc4LCJleHAiOjE2NzY1NTE3OTUsIm9yaWdfaWF0IjoxNjc2NTMwMTk1fQ.bsyLgi2ajJ1201ViXJkzICr4L6NR4Y2bNoBQaQ4ZjBo',
+      submit_user: 'unzoa-cc'
+    },
+    dragAble: true,
+    dragWrapperId: 'dg'
+  }, {
+    failMessageList (list) {
+      console.log(list)
+    },
+    onProgress (progress) {
+      console.log(progress)
+    },
+    beforeDrag () {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(0)
+        }, 1000);
+      })
+    }
+  })
+})
 </script>
 
 <template>
@@ -15,18 +49,19 @@ import { useCounterStore } from './stores/counter'
     </div>
   </header>
 
-  <input
-    id="upd"
-    type="file"
-    url="https://xxxx.com/api/upload/"
-    drag
-    :autoUpload=true
-    multiple
-    webkitdirectory
-    :data="{
-      a: 1
-    }"
-    />
+  <div id="dg" style="width: 500px; height: 500px; background-color: #999;">
+    <form>
+      <input
+        id="upd"
+        hidden
+        type="file"
+        multiple
+        @change="upd.change"
+        />
+      <el-button @click="upd.click()">选择文件</el-button>
+      <el-button @click="upd.syncSubmit()">同步上传</el-button>
+    </form>
+  </div>
 
   <RouterView />
 </template>
