@@ -2,9 +2,9 @@
 import { onMounted, ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useCounterStore } from './stores/counter'
-import upload from 'upload-calc'
+import upload from './libs/packages/upload@1.0.3'
 
-const upd: any = ref({})
+const upd = ref<upload>({} as upload)
 
 onMounted(() => {
   upd.value = new upload('upd', 'https://www.biweicloud.com:9012/api/file_upload/', {

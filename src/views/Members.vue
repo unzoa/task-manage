@@ -3,7 +3,6 @@ import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import role from '../stores/role'
 import { useMembersStore } from '../stores/members/members'
-import type { Member } from '../stores/members/member-type'
 
 const { members } = storeToRefs(useMembersStore())
 const { addMember, delMember, editMember } = useMembersStore()

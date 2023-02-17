@@ -52,7 +52,7 @@ declare module '*.vue' {
 declare module '*'
 ```
 
-Q: 添加全局属性
+Q: vue3 添加全局属性
 A: app.config.globalProperties.
 ```js
 // plugins/i18n.js
@@ -83,7 +83,7 @@ Q：ts 在vscode中，修改了ts类型写法，但是在vue文件中依然以�
 A：需要重启vscode
 
 
-Q: 全局变量
+Q: vue3 全局变量
 A:
 ```js main.ts
 app.provide('request', request)
@@ -121,4 +121,8 @@ interface Member {
 // 表单默认值
 const memberObj = ref({} as Member)
 ```
+
+
+Q: .d.ts 文件
+A:
 

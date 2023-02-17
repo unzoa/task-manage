@@ -23,7 +23,7 @@ export function get <T>(url: string, params?: T, config?: AxiosRequestConfig): P
   })
 }
 
-export function post <T>(url: string, data?: T, config?: AxiosRequestConfig): Promise<any> {
+export function post (url: string, data?: object | undefined, config?: AxiosRequestConfig): Promise<any> {
   return new Promise((resolve, reject) => {
     axios
       .post(url, data, {
