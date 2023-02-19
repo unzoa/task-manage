@@ -123,6 +123,6 @@ const memberObj = ref({} as Member)
 ```
 
 
-Q: .d.ts 文件
+Q: .d.ts 声明文件
 A:
 
