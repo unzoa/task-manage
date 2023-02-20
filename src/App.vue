@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
-import { useCounterStore } from './stores/counter'
 import upload from './libs/packages/upload@1.0.3'
 
 const upd = ref<upload>({} as upload)
@@ -39,8 +38,6 @@ onMounted(() => {
 
 <template>
   <header>
-    <img @click="useCounterStore().increment" alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Members</RouterLink>

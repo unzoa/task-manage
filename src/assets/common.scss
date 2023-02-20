@@ -1,0 +1,14 @@
+@import './iconfont/iconfont.css';
+
+@font-face {
+  font-family: SiYuan;
+  src: url('/static/font/KaiGenGothicSC-Normal.ttf');
+}
+* {
+  font-family: SiYuan, SimHei, Hei !important;
+
+  scrollbar-width: thin;
+  scrollbar-color: #3e579a transparent;
+  scrollbar-track-color: #3e579a;
+  -ms-scrollbar-track-color: #3e579a;
+}

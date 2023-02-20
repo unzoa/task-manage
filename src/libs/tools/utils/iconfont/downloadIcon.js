@@ -3,7 +3,7 @@ const request = require('request')
 const fs = require('fs')
 
 // get my project online link on iconfont.cn
-const copyUrl = process.env.npm_package_scripts_icon.split('URL=')[1]
+const copyUrl = process.env.npm_lifecycle_script.split('URL=')[1]
 const iconfont = 'https:' + copyUrl
 
 /**

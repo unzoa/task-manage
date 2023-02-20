@@ -8,11 +8,19 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
-// 在以下文件名字后面加hash
-// 按需引入的插件
-const plugins = [
-  'element-plus'
-]
+// 保持不变的插件，不做hash
+// 这里数据类型之所以是个对象，因为有时候不得不改遍版本
+// 改变value值即可在打包中体现
+const stablePluginObj = {
+  '@vue': 'vue@v1.0.0',
+  'vue-router': 'vue-router',
+  'escape-html': 'escape-html',
+  'normalize-wheel-es': 'normalize-wheel-es',
+  'lodash-es': 'lodash-es',
+  '@popperjs': '@popperjs',
+  'axios': 'axios',
+  'pinia': 'pinia'
+} as { [k:string]: string }
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -39,22 +47,19 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        chunkFileNames: (chunkInfo) => {
-            const name = chunkInfo.name
-            const nameCharCode = name.slice(0).charCodeAt(0) // 路由文件首字母大写
-            if ( nameCharCode >= 65 && nameCharCode <= 90 ) {
-              return `static/js/router/[name]-[hash].js`
-            }
-            if ( plugins.includes( name ) ) {
-              return `static/js/plugins/[name]-[hash].js`
-            }
-            return 'static/js/chunk/[name].js'
-        },
+        chunkFileNames: chunkInfo => stablePluginObj[chunkInfo.name]
+          ? `static/js/chunk/stable/${stablePluginObj[chunkInfo.name]}.js`
+          : `static/js/chunk/[name]-[hash].js`,
         entryFileNames: 'static/js/entry/[name]-[hash].js',
         assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
-        manualChunks(id) { //静态资源分拆打包
+        manualChunks(id) {
           if (id.includes('node_modules')) {
-            return id.toString().split('node_modules/')[1].split('/')[0].toString()
+            // 包名
+            const moduleName = id.toString().split('node_modules/')[1].split('/')[0].toString()
+
+            // 返回要固定的包名
+            // 注意：当入口文件index-[hash].js变大时，注释这里，检查是否有需要增加的固定包名
+            if (stablePluginObj[moduleName]) return moduleName
           }
         }
       }

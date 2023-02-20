@@ -1,4 +1,4 @@
-export default (props, { slots, emit, attrs}) => {
+export default (props: any, { slots, emit, attrs}: any) => {
   console.log('props', props)
   console.log('attrs', attrs)
 
