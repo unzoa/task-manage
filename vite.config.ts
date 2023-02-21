@@ -41,7 +41,7 @@ export default defineConfig({
   },
 
   server: {
-    port: 8090
+    port: 8080
   },
 
   build: {

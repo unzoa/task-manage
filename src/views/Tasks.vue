@@ -1,7 +1,7 @@
 <script setup lang="ts">
-
 </script>
 
 <template>
-  <div class=""></div>
+  <div class="task-wrapper">
+  </div>
 </template>
