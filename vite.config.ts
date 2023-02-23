@@ -28,15 +28,27 @@ export default defineConfig({
     vue(), vueJsx(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
+      // 直接在组件中使用模块时报错， cannot find name 'xx'
+      // 需要在tsconfig.json include 增加 'auto-imports.d.ts'
+      imports: [
+        'vue', 'vue-router', 'pinia',
+        {
+          '@/config/third-plugins/axios/request': [
+            ['default', '$ajax']
+          ]
+        }
+      ]
     }),
     Components({
       resolvers: [ElementPlusResolver()],
+      dirs: ['src/components', 'src/views'], // 要搜索组件的目录的相对路径
+      extensions: ['vue'], // 组件的有效文件扩展名
+      deep: true // 搜索子目录
     })
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@request': fileURLToPath(new URL('./src/config/third-plugins/axios/request.ts', import.meta.url)),
+      '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
 

@@ -125,4 +125,44 @@ const memberObj = ref({} as Member)
 
 Q: .d.ts 声明文件
 A:
+```ts
+declare namespace YourSpaceName {
+  type ...
+  interface ...
+}
 
+class H {
+  count: number
+
+  constructor (
+    id: number
+  ) {}
+
+  click (): void
+  ...
+}
+export H
+```
+
+
+
+Q: unplugin-auto-import/vite imports custom，引入自定义模块，应用时有ts提示
+A: 需要去掉格式
+```js vite.config.ts
+// 引用模块有export 或 export default
+plugins: [
+  AutoImport({
+    resolvers: [ElementPlusResolver()],
+    // 直接在组件中使用模块时报错， cannot find name 'xx'
+    // 需要在tsconfig.json include 增加 'auto-imports.d.ts'
+    imports: [
+      'vue', 'vue-router', 'pinia',
+      {
+        '@/config/third-plugins/axios/request': [
+          ['default', '$ajax']
+        ]
+      }
+    ]
+  }),
+]
+```

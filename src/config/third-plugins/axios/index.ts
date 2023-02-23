@@ -3,6 +3,7 @@ import type {
   InternalAxiosRequestConfig,
   AxiosResponse
 } from 'axios'
+import { pushCancelToken } from './interruptRequest'
 
 import project from '../../project-which'
 const { api } = project
@@ -17,6 +18,9 @@ function TOKEN () {
 axios.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     //....可以在这里加上token值
+    config.cancelToken = new axios.CancelToken(cancel => {
+      pushCancelToken((config.url as string), cancel)
+    })
 
     switch (config.method) {
       case 'get':

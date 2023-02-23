@@ -1,6 +1,4 @@
-import { ref } from 'vue'
 import type { Ref } from 'vue'
-import { defineStore } from "pinia"
 
 export const useMembersStore = defineStore('members', () => {
   const members: Ref<Array<Member>> = ref([])

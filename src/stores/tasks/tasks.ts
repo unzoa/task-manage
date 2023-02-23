@@ -1,5 +1,4 @@
-import { defineStore } from 'pinia'
-import { ref, type Ref } from 'vue'
+import type { Ref } from 'vue'
 
 export default defineStore('tasks', () => {
   const tasks: Ref<Array<Task>> = ref([])

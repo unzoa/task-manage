@@ -23,6 +23,25 @@ export function get <T>(url: string, params?: T, config?: AxiosRequestConfig): P
   })
 }
 
+export function downlaodBlob (url: string, data?: object): Promise<any> {
+  const configOri = {
+    params: data || {},
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+    },
+    responseType: 'blob'
+  } as AxiosRequestConfig
+  return new Promise((resolve, reject) => {
+    axios.get(url, configOri)
+      .then((r: AxiosResponse) => {
+        resolve(window.URL.createObjectURL(r as any))
+      })
+      .catch(res => {
+        reject(res)
+      })
+  })
+}
+
 export function post (url: string, data?: object | undefined, config?: AxiosRequestConfig): Promise<any> {
   return new Promise((resolve, reject) => {
     axios
@@ -66,4 +85,4 @@ export function upload (url: string, data?: any, config?: AxiosRequestConfig) {
   })
 }
 
-export default { get, post, upload }
+export default { get, downlaodBlob, post, upload }

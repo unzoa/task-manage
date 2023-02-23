@@ -36,6 +36,9 @@ npm i upload-calc
 ```js vue3
 import upload from 'upload-calc'
 const upd = ref<upload>({} as upload)
+onMounted( () => {
+  upd.value = new upload(inputId, url, option{}, callback{})
+} )
 ```
 
 ```js

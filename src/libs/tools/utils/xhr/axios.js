@@ -1,6 +1,6 @@
 import Axios from 'axios'
 
-export default {
+const ajaxFn = {
   get (Interface, requestData = {}) {
     return new Promise((resolve, reject) => {
       Axios.get(Interface, {
@@ -76,3 +76,5 @@ export default {
     })
   }
 }
+
+export default ajaxFn

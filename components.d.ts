@@ -16,8 +16,9 @@ declare module '@vue/runtime-core' {
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
-    Haha: typeof import('./src/components/Haha.vue')['default']
+    Members: typeof import('./src/views/Members.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Tasks: typeof import('./src/views/Tasks.vue')['default']
   }
 }

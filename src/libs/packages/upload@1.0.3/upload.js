@@ -3,7 +3,7 @@
  * @time 2023-02-17
  */
 
-export default class Upload {
+export default class UploadCalc {
   filterSuccessList = []
   count = -1
   fileKey = 'file'
@@ -167,19 +167,6 @@ export default class Upload {
     filterSuccessList.shift()
 
     this.syncSubmit()
-  }
-
-  fetchEvent (formData) {
-    return fetch(this.url, {
-      method: "POST",
-      body: formData
-    })
-      .then(fetchProgress({
-        // implement onProgress method
-        onProgress(progress) {
-          console.log(progress)
-        },
-      }))
   }
 
   uploadEvent (formData) {

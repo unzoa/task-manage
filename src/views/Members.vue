@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { storeToRefs } from 'pinia'
 import role from '../stores/role'
 import { useMembersStore } from '../stores/members/members'
-import Haha from '../components/Haha.vue'
 
 const { members } = storeToRefs(useMembersStore())
 const { addMember, delMember, editMember } = useMembersStore()
@@ -44,7 +41,6 @@ function doDelMember (id:number) {
 
 <template>
   <div class="members">
-    <Haha />
     <div>
       <el-button
         @click="drawerShow = true; isAddDrawerTitle = true"
