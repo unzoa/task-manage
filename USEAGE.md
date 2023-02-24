@@ -166,3 +166,24 @@ plugins: [
   }),
 ]
 ```
+
+Q: PWA
+A:
+```bash
+npm i vite-plugin-pwa -D
+```
+
+```js vite.config.ts
+import { VitePWA } from 'vite-plugin-pwa'
+export default defineConfig({
+  plugins: [
+    VitePWA({
+      registerType: 'autoUpdate',
+      // if you want to check it in dev, add the devOptions option to the plugin configuration
+      devOptions: {
+        enabled: true
+      }
+    })
+  ]
+})
+```
